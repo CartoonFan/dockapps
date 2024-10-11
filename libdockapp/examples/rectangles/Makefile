@@ -2,7 +2,7 @@ CC=gcc
 INSTALL=install
 PREFIX=/usr/local
 CFLAGS+=-Wall `pkg-config --cflags dockapp`
-LIBS=`pkg-config --libs dockapp`
+LIBS=`pkg-config --libs dockapp x11 xext `
 
 rectangles: rectangles.o
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
