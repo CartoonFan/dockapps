@@ -105,7 +105,8 @@ int main(int argc, char *argv[]) {
     int			n;
     int 		Year, Month;
     int			DayOfMonth;
-    long		CurrentLocalTime, CurrentGMTTime, date;
+    time_t		CurrentLocalTime, CurrentGMTTime;
+    long		date;
     double		UT, val, LTRise, LTSet, LocalHour, hour24();
     int			H, M;
     struct timeval	timeout;
