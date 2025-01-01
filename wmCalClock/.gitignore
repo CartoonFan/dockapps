@@ -1,0 +1,10 @@
+*~
+/build-aux/
+/config.h
+/config.h.in
+/configure
+Makefile
+Makefile.in
+/Src/wmCalClock
+/stamp-h1
+wmcalclock-*.tar.*
