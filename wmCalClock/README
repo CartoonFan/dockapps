@@ -1,7 +1,9 @@
-wmCalClock-1.24 release
+wmCalClock-1.25 release
 -----------------------
-Author....: Michael G. Henderson <mghenderson@lanl.gov>
+Currently maintained by the Window Maker Development Team
+<wmaker-dev@googlegroups.com>.
 
+Original author: Michael G. Henderson <mghenderson@lanl.gov>
 
 Description
 -----------
@@ -22,7 +24,7 @@ TODO		Wish list.
 
 Bugs
 -----
-Send bug reports to mghenderson@lanl.gov
+Send bug reports to wmaker-dev@googlegroups.com
 
 
 Copyright
