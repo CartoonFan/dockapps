@@ -87,6 +87,9 @@
 /*
  *   Includes
  */
+#ifdef HAVE_CONFIG_H
+#include "../config.h"
+#endif
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -105,7 +108,7 @@
  *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
-#define WMCALCLOCK_VERSION "1.25"
+#define WMCALCLOCK_VERSION PACKAGE_VERSION
 
 
 
