@@ -1,4 +1,4 @@
-AC_INIT([wmCalClock], [1.25], [wmaker-dev@googlegroups.com])
+AC_INIT([wmCalClock], [1.26], [wmaker-dev@googlegroups.com])
 AC_PREREQ([2.69])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([1.13 no-dist-gzip dist-xz foreign subdir-objects tar-pax -Wall])

@@ -4,7 +4,7 @@ Generic.
 --------
 % wmCalClock -h
 
-wmCalClock version: 1.24
+wmCalClock version: 1.26
 
 usage: wmCalClock [-b <Volume>] [-tc <Color>] [-bc <Color>] [-e "Command"] [-S]
 [-24] [-30] [-g] [-s] [-l <longitude>] [-l] [-h]

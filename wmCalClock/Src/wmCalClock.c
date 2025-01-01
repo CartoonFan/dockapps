@@ -1,6 +1,6 @@
 /*
  *
- *  	wmCalClock-1.25 (C) 1998, 1999 Mike Henderson (mghenderson@lanl.gov)
+ *  	wmCalClock (C) 1998, 1999 Mike Henderson (mghenderson@lanl.gov)
  *
  *  		- Its a Calendar Clock....
  *
@@ -24,6 +24,12 @@
  *
  *
  *      Changes:
+ *
+ *	Version 1.26  - released 27th December, 2024
+ * 			The addition of a 30-hour mode
+ *			Some bug-fixes
+ *			Update maintainer info to the Window Maker Development Team
+ *			Conversion of the build-system to autotools
  *
  *	Version 1.25  -	released July 2, 1999.
  *			Some optimization + ignores double click if no command set (patch from
