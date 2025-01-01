@@ -890,7 +890,7 @@ void print_usage(){
     printf("\t-l\t\tUse a low-color pixmap to conserve colors. On 8-bit displays the\n");
     printf("\t  \t\tlow color pixmap will always be used.\n");
     printf("\t-h\t\tDisplay help screen.\n");
-    printf("\nExample: wmCalClock -b 100 -tc #001100 -bc #7e9e69 \n\n");
+    printf("\nExample: wmCalClock -b 100 -tc '#001100' -bc '#7e9e69' \n\n");
 
 }
 
