@@ -7,7 +7,7 @@ Generic.
 wmCalClock version: 1.24
 
 usage: wmCalClock [-b <Volume>] [-tc <Color>] [-bc <Color>] [-e "Command"] [-S]
-[-24] [-g] [-s] [-l <longitude>] [-l] [-h]
+[-24] [-30] [-g] [-s] [-l <longitude>] [-l] [-h]
 
         -b <Volume>     Beep on the hour. Volume is between -100 to 100.
         -tekton         Use the Tekton font for time field.
@@ -20,6 +20,7 @@ usage: wmCalClock [-b <Volume>] [-tc <Color>] [-bc <Color>] [-e "Command"] [-S]
         -e "Command"    Command to execute via double click of mouse button 1.
         -S              Do not show seconds.
         -24             Show 24-hour time. Default is 12 hour AM/PM Time.
+        -30             Show 30-hour local time (hour ranges from 6 to 29).
         -g              Show Greenwich time.
         -s              Show Greenwich Mean Sidereal Time (GMST) in 24-hour format.
         -L <Longitude>  Show Local Sidereal Time (LST) in 24-hour format.

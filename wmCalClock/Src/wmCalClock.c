@@ -259,6 +259,7 @@ int	xdAMPM[2];
 int	yAMPM  = 95;
 int	ydAMPM = 6;
 int	Show24HourTime = 0;
+int	Show30HourTime = 0;
 int	ShowGreenwichTime = 0;
 int	ShowSiderealTime = 0;
 double	Longitude;
@@ -501,6 +502,26 @@ int main(int argc, char *argv[]) {
 		Mins  = (int)gmst;
 		gmst  = (gmst - (double)Mins)*60.0;
 		Secs  = (int)gmst;
+
+	    } else if (Show30HourTime){
+
+		CurrentLocalTime = time(CurrentTime);
+		Time = localtime(&CurrentLocalTime);
+
+		/* Careful.  Need to handle daylight savings time changes correctly. */
+		if (Time->tm_hour < 6){
+		    int old_hour = Time->tm_hour;
+		    time_t new_time = CurrentLocalTime - 12 * 60 * 60;
+		    Time = localtime(&new_time);
+		    Time->tm_hour = old_hour + 24;
+		}
+
+		DayOfMonth = Time->tm_mday-1;
+		DayOfWeek = Time->tm_wday;
+		Month = Time->tm_mon;
+		Hours = Time->tm_hour;
+		Mins  = Time->tm_min;
+		Secs  = Time->tm_sec;
 
 	    } else {
 
@@ -803,6 +824,11 @@ int  i;
 
 	    Show24HourTime = 1;
 
+        } else if (!strcmp(argv[i], "-30")){
+
+	    Show24HourTime = 1; /* Don't display AM/PM */
+	    Show30HourTime = 1;
+
         } else if (!strcmp(argv[i], "-b")){
 
             if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
@@ -870,7 +896,7 @@ void print_usage(){
 
     printf("\nwmCalClock version: %s\n", WMCALCLOCK_VERSION);
     printf("\nusage: wmCalClock [-b <Volume>] [-tc <Color>] [-bc <Color>] [-e \"Command\"] [-S]\n");
-    printf("         [-24] [-g] [-s] [-l <longitude>] [-l] [-jazz] [-tekton] [-luggerbug]\n");
+    printf("         [-24] [-30] [-g] [-s] [-l <longitude>] [-l] [-jazz] [-tekton] [-luggerbug]\n");
     printf("         [-arial] [-comicsans] [-h]\n\n");
     printf("\t-b <Volume>\tBeep on the hour. Volume is between -100 to 100.\n");
     printf("\t-tekton\t\tUse the Tekton font for time field.\n");
@@ -883,6 +909,7 @@ void print_usage(){
     printf("\t-e \"Command\"\tCommand to execute via double click of mouse button 1.\n");
     printf("\t-S\t\tDo not show seconds.\n");
     printf("\t-24\t\tShow 24-hour time. Default is 12 hour AM/PM Time.\n");
+    printf("\t-30\t\tShow 30-hour local time (hour ranges from 6 to 29).\n");
     printf("\t-g\t\tShow Greenwich time.\n");
     printf("\t-s\t\tShow Greenwich Mean Sidereal Time (GMST) in 24-hour format. \n");
     printf("\t-L <Longitude>\tShow Local Sidereal Time (LST) in 24-hour format. \n");

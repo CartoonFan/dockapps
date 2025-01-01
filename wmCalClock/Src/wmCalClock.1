@@ -3,7 +3,7 @@
 WMCALCLOCK \- Dockable Calendar Clock
 .SH SYNOPSIS
 .B wmCalClock
-[-h] [-display <Display>] [-b <Volume>] [-e <Command>] [-24] [-s] [-S] [-L <Longitude>] [-l] [-tc <color>] [-bc <color>] [-tekton] [-comicsans] [-arial] [-luggerbug] [-jazz]
+[-h] [-display <Display>] [-b <Volume>] [-e <Command>] [-24] [-30] [-s] [-S] [-L <Longitude>] [-l] [-tc <color>] [-bc <color>] [-tekton] [-comicsans] [-arial] [-luggerbug] [-jazz]
 .SH DESCRIPTION
 .PP
 wmCalClock is a simple Calendar Clock with anti-aliased text and drop-shadows.
@@ -24,6 +24,11 @@ has white space in it).
 .TP
 .B \-24
 Show time in 24-hour format instead of default 12-hour AM/PM format.
+.TP
+.B \-30
+Show local time in 30-hour format.  Times between midnight and 6 AM
+are displayed as belonging to the previous day, so the hour ranges
+from 6 to 29.
 .TP
 .B \-g
 Show Greenwich Mean Time (GMT).
