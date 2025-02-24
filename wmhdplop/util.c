@@ -176,64 +176,6 @@ unsigned str_hash(const unsigned char *s, int max_len)    /* calculate the crc v
   return( crc^0xFFFFFFFF );
 }
 
-
-unsigned char char_trans[256];
-static int char_trans_init = 0;
-
-static void
-init_char_trans()
-{
-  const unsigned char *trans_accents  =
-    (const unsigned char*) "éèëêÊËÉÈàâáäÀÂÁÄûüùÙçÇîïíìÏÎÍÌôóòõÔÓÒÕñ";
-  const unsigned char *trans_accents2 =
-    (const unsigned char*) "eeeeeeeeaaaaaaaauuuucciiiiiiiioooooooon";
-  int i;
-
-  for (i=0; i < 256; i++) {
-    unsigned char *p;
-    if ((p=(unsigned char*)strchr((char*)trans_accents, i))) {
-      char_trans[i] = trans_accents2[(p - trans_accents)];
-      } else if (i < (unsigned char)'A' || i > (unsigned char)'Z') {
-	char_trans[i] = i;
-      } else {
-	char_trans[i] = i + 'a' - 'A';
-      }
-  }
-  char_trans_init = 1;
-}
-
-unsigned char
-chr_noaccent_tolower(unsigned char c)
-{
-  if (char_trans_init == 0) init_char_trans();
-  return char_trans[c];
-}
-
-void
-str_noaccent_tolower(unsigned char *s)
-{
-  int i;
-  if (s == NULL) return;
-  if (char_trans_init == 0) init_char_trans();
-  i = 0; while(s[i]) {
-    s[i] = char_trans[s[i]]; i++;
-  }
-}
-
-unsigned char *
-str_noaccent_casestr(const unsigned char *meule, const unsigned char *aiguille)
-{
-  unsigned char *res;
-  char *m = strdup((char*)meule);
-  char *a = strdup((char*)aiguille);
-
-  str_noaccent_tolower((unsigned char*)m);
-  str_noaccent_tolower((unsigned char*)a);
-  res = (unsigned char*)strstr(m, a);
-  free(a); free(m);
-  return res;
-}
-
 /* un printf pas très fin, mais avec allocation dynamique..
    c'est pratique ces ptites choses */
 char *

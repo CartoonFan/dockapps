@@ -53,9 +53,6 @@ char *str_multi_substitute(const char *src, const char **keys, const char **subs
 char *str_substitute(const char *src, const char *key, const char *substitution);
 char *shell_quote(const char *src);
 unsigned str_hash(const unsigned char *s, int max_len);
-unsigned char chr_noaccent_tolower(unsigned char c);
-void str_noaccent_tolower(unsigned char *s);
-unsigned char *str_noaccent_casestr(const unsigned char *meule, const unsigned char *aiguille);
 char *str_printf(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 char *str_fget_line(FILE *f);
 void str_trim(unsigned char *s);
