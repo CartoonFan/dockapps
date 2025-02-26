@@ -380,13 +380,13 @@ void change_displayed_hd(int dir) {
   app->displayed_hd_changed = 1;
 }
 
-void next_displayed_hd() {
+void next_displayed_hd(void) {
   BLAHBLAH(1,printf("next_displayed_hd() : filter_hd=%d, filter_part=%d\n", app->filter_hd, app->filter_part));
   change_displayed_hd(-1);
   init_stats(app->update_display_delay_ms*1e-3*app->update_stats_mult);
 }
 
-void prev_displayed_hd() {
+void prev_displayed_hd(void) {
   BLAHBLAH(1,printf("prev_displayed_hd() : filter_hd=%d, filter_part=%d\n", app->filter_hd, app->filter_part));
   change_displayed_hd(+1);
   init_stats(app->update_display_delay_ms*1e-3*app->update_stats_mult);
@@ -609,8 +609,8 @@ static void event_loop(App *app) {
         break;
       case ButtonRelease:
         //exit(0);
-        if (ev.xbutton.button == Button4) prev_displayed_hd(-1);
-        else if (ev.xbutton.button == Button5 || ev.xbutton.button == Button1) next_displayed_hd(+1);
+        if (ev.xbutton.button == Button4) prev_displayed_hd();
+        else if (ev.xbutton.button == Button5 || ev.xbutton.button == Button1) next_displayed_hd();
         break;
       case ConfigureNotify: {
         if (app->dock->iconwin == None &&
