@@ -18,10 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-typedef unsigned int bool;
-
-#define false 0
-#define true (!false)
+#include <stdbool.h>
 
 #define NULL_CURSOR 1
 #define NORMAL_CURSOR 2
