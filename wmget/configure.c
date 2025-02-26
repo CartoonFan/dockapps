@@ -76,13 +76,13 @@ void clear_request (Request *req)
 }
 
 
-static void set_silent ()
+static void set_silent (Request *r, ServerConfig *c, const char *v)
 {
     set_output_level (OL_SILENT);
 }
 
 
-static void set_verbose ()
+static void set_verbose (Request *r, ServerConfig *c, const char *v)
 {
     set_output_level (OL_DEBUG);
 }
@@ -137,14 +137,14 @@ static void set_display (Request *r, ServerConfig *c, const char *value)
 }
 
 
-static void set_overwrite (Request *r, ServerConfig *c)
+static void set_overwrite (Request *r, ServerConfig *c, const char *v)
 {
     if (r) r->overwrite = 1;
     if (c) c->job_defaults.overwrite = 1;
 }
 
 
-static void set_continue (Request *r, ServerConfig *c)
+static void set_continue (Request *r, ServerConfig *c, const char *v)
 {
     if (r) r->continue_from = 1;
     if (c) c->job_defaults.continue_from = 1;
@@ -172,7 +172,7 @@ static void set_user_agent (Request *r, ServerConfig *c, const char *v)
 }
 
 
-static void set_ascii (Request *r, ServerConfig *c)
+static void set_ascii (Request *r, ServerConfig *c, const char *v)
 {
     if (r) r->use_ascii = 1;
     if (c) c->job_defaults.use_ascii = 1;
@@ -186,7 +186,7 @@ static void set_referer (Request *r, ServerConfig *c, const char *v)
 }
 
 
-static void set_headers (Request *r, ServerConfig *c)
+static void set_headers (Request *r, ServerConfig *c, const char *v)
 {
     if (r) r->include = 1;
     if (c) c->job_defaults.include = 1;
@@ -249,11 +249,11 @@ static int load_cmdline (int argc, char **argv,
             default:
                 return 1;
 
-#define yes , optarg
-#define no
+#define yes optarg
+#define no  NULL
 #define O(s,l,a,t) \
             case optchar_##l: \
-                set_##l (req, cfg a); \
+                set_##l (req, cfg, a);	\
                 break;
 #include "config.def"
 #undef O
@@ -338,7 +338,7 @@ static void read_rcfile (FILE *rcfp, ServerConfig *cfg)
                        "extra argument: '%s'", value); \
             } else { \
                 debug ("set " #NAM " <no value>"); \
-                set_##NAM (0, cfg); \
+                set_##NAM (0, cfg, NULL);		   \
             }
 
 #       define O(s,l,a,t) \
