@@ -5,6 +5,11 @@
 
 extern	double	Glon, SinGlat, CosGlat, TimeZone;
 
+static double SinH(int year, int month, int day, double UT);
+static double hour24(double hour);
+static double jd(int ny, int nm, int nd, double UT);
+static double frac(double x);
+
 double    cosEPS = 0.91748;
 double    sinEPS = 0.39778;
 double    P2  = 6.283185307;
@@ -40,7 +45,7 @@ int Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, 
 void SunRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
 
     double	UT, ym, SinH0;
-    double	xe, ye, z1, z2, SinH(), hour24();
+    double	xe, ye, z1, z2;
     int		Rise, Set, nz;
 
     (void) LocalHour;
@@ -107,9 +112,9 @@ void SunRise(int year, int month, int day, double LocalHour, double *UTRise, dou
 
 }
 
-double SinH(int year, int month, int day, double UT){
+static double SinH(int year, int month, int day, double UT){
 
-    double	TU, frac(), jd();
+    double	TU;
     double	RA_Sun, DEC_Sun, gmst, lmst, Tau;
     double	M, DL, L, SL, X, Y, Z, RHO;
 
@@ -146,9 +151,7 @@ double SinH(int year, int month, int day, double UT){
  *  Compute the Julian Day number for the given date.
  *  Julian Date is the number of days since noon of Jan 1 4713 B.C.
  */
-double jd(ny, nm, nd, UT)
-int ny, nm, nd;
-double UT;
+static double jd(int ny, int nm, int nd, double UT)
 {
         double B, C, D, JD, day;
 
@@ -185,8 +188,7 @@ double UT;
 
 }
 
-double hour24(hour)
-double hour;
+static double hour24(double hour)
 {
         int n;
 
@@ -203,7 +205,7 @@ double hour;
         }
 }
 
-double frac(double x){
+static double frac(double x){
 
     x -= (int)x;
     return( (x<0) ? x+1.0 : x );
