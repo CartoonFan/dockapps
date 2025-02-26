@@ -96,7 +96,7 @@ void triangle(int x1, int y1, int x2, int y2, int x3, int y3, int c);
 void BlitString(char *name, int x, int y);
 void BlitNum(int num, int x, int y);
 void clearscr();
-void draw();
+void draw(int color);
 void set_plugin();
 void startup_seq();
 int  red = 0;
