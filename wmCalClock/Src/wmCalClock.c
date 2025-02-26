@@ -119,6 +119,8 @@
 
 
 
+static double jd(int ny, int nm, int nd, double UT);
+static double hour24(double hour);
 
 void ParseCMDLine(int argc, char *argv[]);
 void ButtonPressEvent(XButtonEvent *);
@@ -310,7 +312,7 @@ int main(int argc, char *argv[]) {
     int 		Year, Month, DayOfWeek, DayOfMonth, OldDayOfMonth;
     int			Hours, Mins, Secs, OldSecs, digit, xoff, D[10], xsize;
     time_t		CurrentLocalTime;
-    double		UT, TU, TU2, TU3, T0, gmst, jd(), hour24();
+    double		UT, TU, TU2, TU3, T0, gmst;
 
 
     /*
@@ -939,9 +941,7 @@ void print_usage(){
  *  Compute the Julian Day number for the given date.
  *  Julian Date is the number of days since noon of Jan 1 4713 B.C.
  */
-double jd(ny, nm, nd, UT)
-int ny, nm, nd;
-double UT;
+static double jd(int ny, int nm, int nd, double UT)
 {
         double A, B, C, D, JD, day;
 
@@ -976,8 +976,7 @@ double UT;
 
 }
 
-double hour24(hour)
-double hour;
+static double hour24(double hour)
 {
         int n;
 
