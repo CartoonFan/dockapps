@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
     int			i, n, j, ImageNumber, Year, Month, DayOfMonth, digit;
     time_t		CurrentLocalTime, CurrentGMTTime;
     long		date;
-    double		UT, val, RA, DEC, UTRise, UTSet, LocalHour, hour24();
+    double		UT, val, RA, DEC, UTRise, UTSet, LocalHour;
     int			D, H, M, S, sgn, A, B, q;
     CTrans           	c;
     struct timeval	timeout;

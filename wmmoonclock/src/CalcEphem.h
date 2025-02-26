@@ -55,3 +55,8 @@ void CalcEphem(long int, double, CTrans*);
 int  DayofWeek(int, int, int, char*);
 int  DayofYear(int, int, int);
 
+double kepler(double, double);
+double jd(int ny, int nm, int nd, double UT);
+double hour24(double);
+double angle2pi(double angle);
+double angle360(double angle);

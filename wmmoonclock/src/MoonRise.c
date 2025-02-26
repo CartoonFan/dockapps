@@ -1,4 +1,5 @@
 #include <math.h>
+#include "CalcEphem.h"
 #include "MoonRise.h"
 #include "Moon.h"
 
@@ -7,11 +8,12 @@
 
 extern	double	Glon, SinGlat, CosGlat, TimeZone;
 
+static double SinH(int year, int month, int day, double UT);
 
 void MoonRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
 
     double	UT, ym, y0, yp, SinH0;
-    double	xe, ye, z1, z2, SinH(), hour24();
+    double	xe, ye, z1, z2;
     int		Rise, Set, nz;
 
     SinH0 = sin( 8.0/60.0 * RadPerDeg );
@@ -133,9 +135,8 @@ void Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1,
 
 double SinH(int year, int month, int day, double UT){
 
-    double	TU, frac(), jd();
-    double	RA_Moon, DEC_Moon, gmst, lmst, Tau, Moon();
-    double	angle2pi();
+    double	TU;
+    double	RA_Moon, DEC_Moon, gmst, lmst, Tau;
 
     TU = (jd(year, month, day, UT) - 2451545.0)/36525.0;
 

@@ -1,11 +1,12 @@
-#include "CalcEphem.h"
 #include <math.h>
 #include <string.h>
 
-void CalcEphem(date, UT, c)
-long int     	 date;	/* integer containing the date (e.g. 960829) */
-double  	 UT; 	/* Universal Time */
-CTrans 		*c;	/* structure containing all the relevent coord trans info */
+#include "CalcEphem.h"
+#include "Moon.h"
+
+void CalcEphem(long int  date,	/* integer containing the date (e.g. 960829) */
+	       double  	 UT, 	/* Universal Time */
+	       CTrans 	*c)	/* structure containing all the relevent coord trans info */
 {
 
     int    year, month, day;
@@ -16,8 +17,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
     double r0, earth_sun_distance;
     double RA, DEC, RA_Moon, DEC_Moon;
     double TDT, AGE, LambdaMoon, BetaMoon, R;
-    double jd(), hour24(), angle2pi(), angle360(), kepler(), Moon(), NewMoon();
-    double Ta, Tb, Tc, frac();
+    double Ta, Tb, Tc;
     double SinGlat, CosGlat, Tau, lmst, x, y, z;
     double SinTau, CosTau, SinDec, CosDec;
 
@@ -190,8 +190,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
 
 
 
-double kepler(M, e)
-double M, e;
+double kepler(double M, double e)
 {
         int n=0;
         double E, Eold, eps = 1.0e-8;
@@ -211,21 +210,17 @@ double M, e;
 
 
 
-int DayofYear(year, month, day)
-int year, month, day;
+int DayofYear(int year, int month, int day)
 {
-	double jd();
         return((int)(jd(year, month, day, 0.0) - jd(year, 1, 0, 0.0)));
 }
 
 
 
 
-int DayofWeek(year, month, day, dowstr)
-int year, month, day;
-char dowstr[];
+int DayofWeek(int year, int month, int day, char dowstr[])
 {
-        double JD, A, Afrac, jd();
+        double JD, A, Afrac;
         int n, iA;
 
         JD = jd(year, month, day, 0.0);
@@ -267,9 +262,7 @@ char dowstr[];
  *  Compute the Julian Day number for the given date.
  *  Julian Date is the number of days since noon of Jan 1 4713 B.C.
  */
-double jd(ny, nm, nd, UT)
-int ny, nm, nd;
-double UT;
+double jd(int ny, int nm, int nd, double UT)
 {
         double A, B, C, D, JD, day;
 
@@ -304,8 +297,7 @@ double UT;
 
 }
 
-double hour24(hour)
-double hour;
+double hour24(double hour)
 {
         int n;
 
@@ -322,8 +314,7 @@ double hour;
         }
 }
 
-double angle2pi(angle)
-double angle;
+double angle2pi(double angle)
 {
         int n;
         double a;
@@ -342,8 +333,7 @@ double angle;
         }
 }
 
-double angle360(angle)
-double angle;
+double angle360(double angle)
 {
         int n;
 

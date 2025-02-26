@@ -3,10 +3,12 @@
  */
 
 #include <math.h>
+
+#include "CalcEphem.h"
+#include "Moon.h"
+
 #define DegPerRad       57.29577951308232087680
 #define RadPerDeg        0.01745329251994329576
-
-double angle360();
 
 void addthe(double, double, double, double, double*, double*);
 void addsol(double, double, double, double, int, int, int, int);
@@ -15,7 +17,6 @@ void term(int, int, int, int, double*, double*);
 
 double	TwoPi = 6.283185308;
 double	ARC = 206264.81;
-double	sine(), frac();
 double 	DLAM, DLAMS;
 double 	DS;
 double 	GAM1C;
@@ -337,7 +338,7 @@ void addn(double COEFFN, int P, int Q, int R, int S){
 
 double NewMoon(double ax, double bx, double cx){
 
-    double	f1, f2, x0, x1, x2, x3, Moon();
+    double	f1, f2, x0, x1, x2, x3;
     double	L, B, Rad, AGE, tol=1e-7;
 
     x0 = ax;
@@ -388,7 +389,7 @@ double NewMoon(double ax, double bx, double cx){
 void MiniMoon(double T, double *RA, double *DEC){
 
     double	L0,L,LS,F,D,H,S,N,DL,CB,L_MOON,B_MOON,V,W,X,Y,Z,RHO;
-    double	frac(), cosEPS, sinEPS, P2, ARC;
+    double	cosEPS, sinEPS, P2, ARC;
 
 
     cosEPS = 0.91748;
