@@ -60,50 +60,50 @@ static ServerConfig config;
 
 /***********************************************************************
  * Text Drawing
- *  The various CHAR_* consts locate and dimension the chars on the xpm.
- *  Call init_font() to set up the CHAR_X and CHAR_Y tables, then
+ *  The various XPM_CHAR_* consts locate and dimension the chars on the xpm.
+ *  Call init_font() to set up the XPM_CHAR_X and XPM_CHAR_Y tables, then
  *  draw_string() to put text on the xpm.
  */
-static const int CHAR_WIDTH = 6;
-static const int CHAR_HEIGHT = 7;
+static const int XPM_CHAR_WIDTH = 6;
+static const int XPM_CHAR_HEIGHT = 7;
 
-static const int CHAR_UCALPHA_X = 1;
-static const int CHAR_UCALPHA_Y = 85;
-static const int CHAR_LCALPHA_X = 1;
-static const int CHAR_LCALPHA_Y = 95;
-static const int CHAR_SYMNUM_X = 1;
-static const int CHAR_SYMNUM_Y = 105;
+static const int XPM_CHAR_UCALPHA_X = 1;
+static const int XPM_CHAR_UCALPHA_Y = 85;
+static const int XPM_CHAR_LCALPHA_X = 1;
+static const int XPM_CHAR_LCALPHA_Y = 95;
+static const int XPM_CHAR_SYMNUM_X = 1;
+static const int XPM_CHAR_SYMNUM_Y = 105;
 
-static int CHAR_X[128];
-static int CHAR_Y[128];
+static int XPM_CHAR_X[128];
+static int XPM_CHAR_Y[128];
 
 static void init_font (void)
 {
     int i;
     int *cx, *cy;
 
-    for (i = 0, cx = CHAR_X, cy = CHAR_Y; i < 128; ++i, ++cx, ++cy) {
+    for (i = 0, cx = XPM_CHAR_X, cy = XPM_CHAR_Y; i < 128; ++i, ++cx, ++cy) {
         if (i > 'z') {
-            *cx = CHAR_SYMNUM_X;    /* 1st SYMNUM is the space */
-            *cy = CHAR_SYMNUM_Y;
+            *cx = XPM_CHAR_SYMNUM_X;    /* 1st SYMNUM is the space */
+            *cy = XPM_CHAR_SYMNUM_Y;
         } else if (i >= 'a') {
-            *cx = CHAR_LCALPHA_X + CHAR_WIDTH * (i - 'a');
-            *cy = CHAR_LCALPHA_Y;
+            *cx = XPM_CHAR_LCALPHA_X + XPM_CHAR_WIDTH * (i - 'a');
+            *cy = XPM_CHAR_LCALPHA_Y;
         } else if (i > 'Z') {
-            *cx = CHAR_SYMNUM_X;
-            *cy = CHAR_SYMNUM_Y;
+            *cx = XPM_CHAR_SYMNUM_X;
+            *cy = XPM_CHAR_SYMNUM_Y;
         } else if (i >= 'A') {
-            *cx = CHAR_UCALPHA_X + CHAR_WIDTH * (i - 'A');
-            *cy = CHAR_UCALPHA_Y;
+            *cx = XPM_CHAR_UCALPHA_X + XPM_CHAR_WIDTH * (i - 'A');
+            *cy = XPM_CHAR_UCALPHA_Y;
         } else if (i > '9') {
-            *cx = CHAR_SYMNUM_X;
-            *cy = CHAR_SYMNUM_Y;
+            *cx = XPM_CHAR_SYMNUM_X;
+            *cy = XPM_CHAR_SYMNUM_Y;
         } else if (i >= ' ') {
-            *cx = CHAR_SYMNUM_X + CHAR_WIDTH * (i - ' ');
-            *cy = CHAR_SYMNUM_Y;
+            *cx = XPM_CHAR_SYMNUM_X + XPM_CHAR_WIDTH * (i - ' ');
+            *cy = XPM_CHAR_SYMNUM_Y;
         } else {
-            *cx = CHAR_SYMNUM_X;
-            *cy = CHAR_SYMNUM_Y;
+            *cx = XPM_CHAR_SYMNUM_X;
+            *cy = XPM_CHAR_SYMNUM_Y;
         }
     }
 }
@@ -112,10 +112,10 @@ static void draw_string (const char *str, int x, int y)
 {
     for ( ; *str; ++str) {
         dockapp_overlay_pixmap (
-                CHAR_X[(int)*str], CHAR_Y[(int)*str],
+                XPM_CHAR_X[(int)*str], XPM_CHAR_Y[(int)*str],
                 x, y,
-                CHAR_WIDTH, CHAR_HEIGHT);
-        x += CHAR_WIDTH;
+                XPM_CHAR_WIDTH, XPM_CHAR_HEIGHT);
+        x += XPM_CHAR_WIDTH;
     }
 }
 
