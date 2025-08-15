@@ -86,11 +86,9 @@ http://www.digitalkaos.net/linux/wmnet/
 TO INSTALL from tar.gz:
 tar xfzv wmnet-1.06.tar.gz
 cd wmnet-1.06
-xmkmf
+./configure
 make
-strip wmnet
 make install
-make install.man
 
 NOTE: you may wanna change config.h to change the compiled in drivers.
 
