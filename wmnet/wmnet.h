@@ -66,6 +66,7 @@ Display *dpy;
 Window root_window, main_window, icon_window, *visible_window;
 Font thefont;
 Pixmap arrow;
+Pixmap buffer_pixmap; /*Trilobit pixmap als zwischenbuffer*/
 Atom delete_atom;
 int screen, specified_state = -1;
 GC graphics_context;

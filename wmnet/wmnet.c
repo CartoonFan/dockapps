@@ -428,6 +428,8 @@ void setupX(void) {
 
 	root_window = DefaultRootWindow(dpy);
 	createWin(&main_window);
+	/*Trilobit anlegen eines buffers als pixmap*/
+	buffer_pixmap=XCreatePixmap(dpy, root_window, 64, 64, DefaultDepth(dpy, screen));
 
 	color.red = color.green = color.blue = 12000;
 	XAllocColor(dpy, DefaultColormap(dpy, screen), &color);
@@ -477,8 +479,13 @@ void setupX(void) {
 	XSelectInput(dpy, *visible_window, (ExposureMask|ButtonPressMask));
 	XMapSubwindows(dpy, *visible_window);
 
+	/*Trilobit initialisieren des Buffers:*/
+	XSetForeground(dpy, graphics_context, darkgrey_pixel);
+	XFillRectangle(dpy, buffer_pixmap, graphics_context, GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT);
+
 }
 
+/*************************** anfang zu verändern ************/
 /* Utility function to create a window for setupX() */
 void createWin(Window *win) {
 	XClassHint classHint;
@@ -524,8 +531,10 @@ void redraw(XExposeEvent *ee) {
 	XSetBackground(dpy, graphics_context, black_pixel);
 	XCopyPlane(dpy, arrow, *visible_window, graphics_context, 7, 0, 7, 9, 53, 5, 1);
 	XCopyPlane(dpy, arrow, *visible_window, graphics_context, 0, 0, 7, 9, 46, 5, 1);
+	/*Trilobit ganz billig, einfach buffer zurückschreiben:*/
+	XCopyArea(dpy, buffer_pixmap, *visible_window, graphics_context, GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y);
 }
-
+/******************* ende zu verändern *********************/
 
 /* Main loop that is called every delaytime.  This calls stat_gather() and updateSpeedometer() when needed
  * and takes care of the displaying and scrolling the graph */
@@ -572,10 +581,10 @@ void tock(void) {
 		/* blank var is just for stopping executing the X* funcs when the disp is all black */
 		if ((y == GRAPH_Y_BOTTOM && yy == GRAPH_Y_UPPER) && (diffbytes_in + diffbytes_out) == 0) blank++; else blank = 0;
 		if (blank < (GRAPH_WIDTH + 1) ) {
-			XCopyArea(dpy, *visible_window, *visible_window, graphics_context, GRAPH_X + 1,
+			XCopyArea(dpy, buffer_pixmap, buffer_pixmap, graphics_context, GRAPH_X + 1,
 			   GRAPH_Y, GRAPH_WIDTH - 1, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y);
 			XSetForeground(dpy, graphics_context, darkgrey_pixel);
-			XDrawLine(dpy, *visible_window, graphics_context, GRAPH_X_RIGHT, y, GRAPH_X_RIGHT, yy);
+			XDrawLine(dpy, buffer_pixmap, graphics_context, GRAPH_X_RIGHT, y, GRAPH_X_RIGHT, yy);
 			if (( (yy == GRAPH_Y_UPPER && diffbytes_out > 0 && rate_rx > rate_tx) || (rate_rx >= rate_tx && yy != GRAPH_Y_UPPER)) ) {
 				drawColoredLine(GRAPH_Y_UPPER, yy, tx_pixel);
 			}
@@ -585,14 +594,18 @@ void tock(void) {
 			if (( (yy == GRAPH_Y_UPPER && diffbytes_out > 0) || (rate_rx < rate_tx && yy != GRAPH_Y_UPPER)) ) {
 				drawColoredLine(GRAPH_Y_UPPER, yy, tx_pixel);
 			}
-		}
 
+			/* Trilobit nachdem buffer zurechtgebastelt, den kram ins fenster kopieren: */
+			XCopyArea(dpy, buffer_pixmap, *visible_window, graphics_context, GRAPH_X,
+					GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT, GRAPH_X, GRAPH_Y);
+		}/*END if blank*/
+/************************* ende zu verändern *******************/
 
 		diffbytes_in = diffbytes_out = 0;
 		timelast = timenow;
 	}
 
-	if (!stat_gather()) {  /* Anything change? */
+	if (!stat_gather()) {  /* Anything change? erneuert nur die Pfeilanzeigen */
 		current_rx = rx;
 		current_tx = tx;
 		XSetBackground(dpy, graphics_context, black_pixel);
@@ -678,6 +691,7 @@ int updateSpeedometer(int rxRate, int txRate) {
 }
 
 
+/*************************** anfang zu verändern ***************/
 /* called from within tock to draw the shaded lines making up our bar-graph */
 void drawColoredLine(int y1, int y2, unsigned long *shadecolor) {
 	int subline[4], i;
@@ -687,9 +701,12 @@ void drawColoredLine(int y1, int y2, unsigned long *shadecolor) {
 		if (y1 > y2) subline[i+1] = y1 - (((y1 - y2) * linebreaks[i]) / 100);
 		else subline[i+1] = y1 + (((y2 - y1) * linebreaks[i]) / 100);
 		XSetForeground(dpy, graphics_context, shadecolor[i]);
-		XDrawLine(dpy, *visible_window, graphics_context, GRAPH_X_RIGHT, subline[i], GRAPH_X_RIGHT, subline[i+1]);
+		/*Trilobit alles erstmal in meinen buffer schreiben: */
+		XDrawLine(dpy, buffer_pixmap, graphics_context, GRAPH_X_RIGHT, subline[i], GRAPH_X_RIGHT, subline[i+1]);
+		//XDrawLine(dpy, *visible_window, graphics_context, GRAPH_X_RIGHT, subline[i], GRAPH_X_RIGHT, subline[i+1]);
 	}
 }
+/************************* ende zu verändern *******************/
 
 
 /* Returns in returnarray a 3 value array containing 3 shades (low, normal, and high) of XColor shade.
