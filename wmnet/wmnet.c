@@ -343,7 +343,9 @@ void setup_wmnet(int argc, char **argv) {
 	sigemptyset(&signal_action.sa_mask);
 	signal_action.sa_flags = (SA_NOCLDSTOP|SA_RESTART);
 #ifdef linux
+#if !defined(__alpha) && !defined(__hppa__) && !defined(__ia64__) // Alpha doen't have this structure member
 	signal_action.sa_restorer = NULL;
+#endif
 #endif
 	if ((sigaction(SIGCHLD, &signal_action, NULL) == -1) ||
 	    (sigaction(SIGINT, &signal_action, NULL) == -1) ||
