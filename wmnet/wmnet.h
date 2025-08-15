@@ -63,6 +63,7 @@
 
 /* X Stuff */
 Display *dpy;
+char *dpy_name = NULL;
 Window root_window, main_window, icon_window, *visible_window;
 Font thefont;
 Pixmap arrow;

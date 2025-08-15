@@ -100,9 +100,9 @@ void setup_wmnet(int argc, char **argv) {
 	char *txcolorString = NULL, *rxcolorString = NULL, *labelfgcolorString = NULL, *labelbgcolorString = NULL;
 	char *parser = NULL;
 #ifdef linux
-	const struct option long_options[19] = {
+	const struct option long_options[20] = {
 #else
-	const struct option long_options[17] = {
+	const struct option long_options[18] = {
 #endif
 		{"device", required_argument, NULL, 'W'},
 		{"label", required_argument, NULL, 'L'},
@@ -124,6 +124,7 @@ void setup_wmnet(int argc, char **argv) {
 		{"unpromisc", required_argument, NULL, 'u'},
 		{"driver", required_argument, NULL, 'D'},
 		{"version", no_argument, NULL, 'v'},
+		{"display", required_argument, NULL, 'X'},
 		{0, 0, 0, 0}
 	};
 
@@ -131,9 +132,9 @@ void setup_wmnet(int argc, char **argv) {
 
 	/* Get options */
 #ifdef linux
-	while((c = getopt_long(argc, argv, "W:F:B:L:vp:u:wnle:R:T:r:t:D:d:x:h", long_options, NULL)) != EOF) {
+	while((c = getopt_long(argc, argv, "W:F:B:L:X:vp:u:wnle:R:T:r:t:D:d:x:h", long_options, NULL)) != EOF) {
 #else
-	while((c = getopt_long(argc, argv, "W:F:B:L:vp:u:wnle:r:t:D:d:x:h", long_options, NULL)) != EOF) {
+	while((c = getopt_long(argc, argv, "W:F:B:L:X:vp:u:wnle:r:t:D:d:x:h", long_options, NULL)) != EOF) {
 #endif
 		switch(c) {
 			case 'v':
@@ -141,6 +142,9 @@ void setup_wmnet(int argc, char **argv) {
 				       "Copyright (C) 1998, 2000 Jesse B. Off, Katharine Osborne <kaos@digitalkaos.net>\n"
 				       "This program is released under the terms of the GNU Public License.\n");
 				exit(14);
+				break;
+			case 'X':
+				dpy_name = strdup(optarg);
 				break;
 			case 'W':
 				device = strdup(optarg);
@@ -280,6 +284,7 @@ void setup_wmnet(int argc, char **argv) {
 				       "-----------------------------------------------------\n"
 				       "  -h, --help               this help\n"
                                        "  -v, --version            display version information\n"
+                                       "  -X, --display            X server to contact\n"
                                        "  -L, --label=LABEL        display LABEL on bottom of window\n"
                                        "  -F, --labelfg=COLOR      foreground color for the label\n"
                                        "  -B, --labelbg=COLOR      background color for the label\n"
@@ -328,7 +333,7 @@ void setup_wmnet(int argc, char **argv) {
 	}
 
 	/* Open X Display */
-	if ((dpy = XOpenDisplay(NULL)) == NULL) {
+	if ((dpy = XOpenDisplay(dpy_name)) == NULL) {
 		fprintf(stderr,"wmnet: doh...can't connect to X server, giving up\n");
 		exit(1);
 	}

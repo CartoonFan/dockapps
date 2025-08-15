@@ -113,6 +113,9 @@ with the -h switch.
 watch statistics for \fIDEVICE \fP.  This option is only used for certain
 stat drivers, namely: kmem, devstats, and pppstats.  The ipchains and ipfwadm
 stat drivers do not use this parameter.
+.TP
+.B \-X,\-\-display=\fDISPLAY
+X display to use.
 .SH STAT DRIVERS
 wmnet uses different stat drivers to get the stats it needs to monitor your
 network.  Exactly what drivers are available is determined at compile time.  The
