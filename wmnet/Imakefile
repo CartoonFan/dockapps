@@ -3,10 +3,6 @@ CC = gcc -Wall
 
 #ifdef LinuxArchitecture
 STD_DEFINES = -Dlinux
-DEFINES = -Dlinux_libc5
-#if LinuxCLibMajorVersion > 5
-DEFINES = -Dlinux_libc6
-#endif
 LOCAL_LIBRARIES = $(XLIB) -lm
 #endif
 

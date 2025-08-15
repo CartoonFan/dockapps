@@ -40,19 +40,14 @@ int kvm_updateStats(void);
 
 #ifdef USE_LINUX_PPP
 #include<net/ppp_defs.h>
-
-#ifdef linux_libc5
-# include<linux/if_ppp.h>
-#else
-# include<net/if_ppp.h>
-#endif
+#include<net/if_ppp.h>
 
 #include<sys/ioctl.h>
 int pppfd;
 int ppp_test(void);
 int updateStats_ppp(void);
 static struct ifpppstatsreq ppp_stats_req;
-#endif
+#endif /* USE_LINUX_PPP */
 
 #define ACCOUNT_IN_FOUND        1
 #define ACCOUNT_OUT_FOUND       2
