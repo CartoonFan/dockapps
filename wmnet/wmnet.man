@@ -88,7 +88,7 @@ specifies the color for the background of the label text
 sets the initial state of wmnet.  WMnet tries to automatically determine which
 state to start up in by starting up in withdrawn state if a WindowMaker
 defined atom is present, and in normalstate otherwise.  This behavior is
-overriden by specifying one of these options.
+overridden by specifying one of these options.
 .TP
 .B \-e,\-\-execute=\fICOMMAND
 executes \fICOMMAND \fPon a single click from button 1 (left mouse button).
@@ -161,9 +161,9 @@ kernel net accounting information
 \fBwmnet\fP was created by \fIJesse B. Off <joff@iastate.edu>\fP and is
 maintained by \fIKatharine Osborne <kaos@digitalkaos.net>\fP.
 
-This manpange was originally written by \fIMarcelo Magallon
+This manpage was originally written by \fIMarcelo Magallon
 <mmagallo@debian.org>\fP for the \fIDebian Project\fP, and is GNU
-Copyright 1998 Marcelo Magallon and later modifed by \fIJesse Off\fP
+Copyright 1998 Marcelo Magallon and later modified by \fIJesse Off\fP
 and \fIKatharine Osborne\fP for WMnet versions 1.05 and above.
 .SH "SEE ALSO"
 .BR wmaker (1x)

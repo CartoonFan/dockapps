@@ -140,7 +140,7 @@ void setup_wmnet(int argc, char **argv) {
 			case 'v':
 				printf("wmnet 1.06\n"
 				       "Copyright (C) 1998, 2000 Jesse B. Off, Katharine Osborne <kaos@digitalkaos.net>\n"
-				       "This program is released under the terms of the GNU Public License.\n");
+				       "This program is released under the terms of the GNU General Public License.\n");
 				exit(14);
 				break;
 			case 'X':
